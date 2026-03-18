@@ -1,0 +1,27 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "run-backend",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"--prefix",
+				"backend",
+				"start"
+			],
+			"isBackground": true
+		},
+		{
+			"label": "run-frontend",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"--prefix",
+				"frontend",
+				"start"
+			],
+			"isBackground": true
+		}
+	]
+}
