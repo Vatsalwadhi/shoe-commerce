@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getAllOrders, deliverOrder } from '../../services/orderService';
+import { getAllOrders, updateOrderStatus } from '../../services/orderService';
 import Loading from '../../components/Loading';
 import { toast } from 'react-toastify';
 
@@ -23,10 +23,10 @@ const AdminOrders = () => {
     }
   };
 
-  const handleDeliver = async (orderId) => {
+  const handleStatusUpdate = async (orderId, newStatus) => {
     try {
-      await deliverOrder(orderId);
-      toast.success('Order marked as delivered');
+      await updateOrderStatus(orderId, newStatus);
+      toast.success(`Order updated to ${newStatus}`);
       fetchOrders();
     } catch (error) {
       toast.error(error.response?.data?.message || 'Failed to update order');
@@ -39,6 +39,8 @@ const AdminOrders = () => {
         return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200';
       case 'Shipped':
         return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200';
+      case 'Out for Delivery':
+        return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200';
       case 'Delivered':
         return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
       case 'Cancelled':
@@ -109,14 +111,17 @@ const AdminOrders = () => {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    {order.status !== 'Delivered' && (
-                      <button
-                        onClick={() => handleDeliver(order._id)}
-                        className="text-green-600 hover:text-green-900 dark:text-green-400"
-                      >
-                        Mark Delivered
-                      </button>
-                    )}
+                    <select
+                      value={order.status}
+                      onChange={(e) => handleStatusUpdate(order._id, e.target.value)}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                    >
+                      <option value="Processing">Processing</option>
+                      <option value="Shipped">Shipped</option>
+                      <option value="Out for Delivery">Out for Delivery</option>
+                      <option value="Delivered">Delivered</option>
+                      <option value="Cancelled">Cancelled</option>
+                    </select>
                   </td>
                 </tr>
               ))}

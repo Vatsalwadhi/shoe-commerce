@@ -194,4 +194,46 @@ router.put('/:id/deliver', protect, admin, async (req, res) => {
   }
 });
 
+// @route   PUT /api/orders/:id/status
+// @desc    Update order status (Admin)
+// @access  Private/Admin
+router.put('/:id/status', protect, admin, async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id);
+
+    if (!order) {
+      return res.status(404).json({
+        success: false,
+        message: 'Order not found',
+      });
+    }
+
+    const { status } = req.body;
+    if (!['Processing', 'Shipped', 'Out for Delivery', 'Delivered', 'Cancelled'].includes(status)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid status',
+      });
+    }
+
+    order.status = status;
+    if (status === 'Delivered') {
+      order.isDelivered = true;
+      order.deliveredAt = Date.now();
+    }
+
+    const updatedOrder = await order.save();
+
+    res.json({
+      success: true,
+      data: updatedOrder,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
 module.exports = router;

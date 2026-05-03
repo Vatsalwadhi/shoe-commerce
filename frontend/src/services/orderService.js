@@ -35,3 +35,8 @@ export const deliverOrder = async (id) => {
   const response = await api.put(`/orders/${id}/deliver`);
   return response.data;
 };
+// Update order status (Admin)
+export const updateOrderStatus = async (id, status) => {
+  const response = await api.put(`/orders/${id}/status`, { status });
+  return response.data;
+};
