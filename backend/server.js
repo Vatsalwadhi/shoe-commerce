@@ -6,6 +6,16 @@ const dotenv = require('dotenv');
 // Load environment variables
 dotenv.config();
 
+// Validate required env (with safe-ish dev fallback)
+if (!process.env.JWT_SECRET) {
+  if (process.env.NODE_ENV === 'production') {
+    console.error('❌ JWT_SECRET is required in production. Set it in your environment variables.');
+    process.exit(1);
+  }
+  process.env.JWT_SECRET = 'dev_jwt_secret_change_me';
+  console.warn('⚠️  JWT_SECRET not set. Using an insecure dev default. Set JWT_SECRET in backend/.env.');
+}
+
 // Import routes
 const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes');
@@ -17,17 +27,57 @@ const reviewRoutes = require('./routes/reviewRoutes');
 const app = express();
 
 // Middleware
-app.use(cors());
+// CORS_ORIGIN can be a single origin or a comma-separated list.
+// Examples:
+// - http://localhost:3000
+// - https://my-frontend.vercel.app
+// - http://localhost:3000,https://my-frontend.vercel.app
+// - * (allow all; not recommended for production)
+const corsOriginRaw = process.env.CORS_ORIGIN || 'http://localhost:3000';
+const allowedOrigins = corsOriginRaw
+  .split(',')
+  .map((o) => o.trim())
+  .filter(Boolean);
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow non-browser clients (curl, Postman) with no Origin header.
+      if (!origin) return callback(null, true);
+
+      // Allow all when explicitly configured.
+      if (allowedOrigins.includes('*')) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+
+      return callback(new Error(`CORS blocked for origin: ${origin}`));
+    },
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Root route (useful for deployments / smoke checks)
+app.get('/', (req, res) => {
+  res.json({
+    status: 'OK',
+    message: 'Sneaker Store API. See /api/health for health check.',
+  });
+});
+
 // MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log('✅ MongoDB Connected Successfully'))
-.catch((err) => console.error('❌ MongoDB Connection Error:', err));
+const mongoUri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/sneaker-store';
+if (!process.env.MONGODB_URI) {
+  console.warn('⚠️  MONGODB_URI not set. Falling back to local MongoDB:', mongoUri);
+}
+
+mongoose
+  .connect(mongoUri)
+  .then(() => console.log('✅ MongoDB Connected Successfully'))
+  .catch((err) => {
+    console.error('❌ MongoDB Connection Error:', err);
+    process.exitCode = 1;
+  });
 
 // Routes
 app.use('/api/products', productRoutes);
@@ -42,6 +92,14 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Sneaker Store API is running' });
 });
 
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: 'Route not found',
+  });
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
@@ -53,6 +111,17 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-});
+// Only start listening when run directly (not when imported by Vercel serverless)
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+  });
+
+  process.on('unhandledRejection', (err) => {
+    console.error('❌ Unhandled Promise Rejection:', err);
+    process.exit(1);
+  });
+}
+
+// Export the app for Vercel serverless functions
+module.exports = app;

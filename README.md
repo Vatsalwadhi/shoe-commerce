@@ -1,6 +1,3 @@
-<<<<<<<
-=======
->>>>>>>
     │   │   ├── ThemeContext.js     # Dark/light mode state
     │   │   ├── CartContext.js      # Shopping cart state
     │   │   └── WishlistContext.js  # Wishlist state
@@ -73,7 +70,36 @@ npm install
 
 Create a `.env` file in the `frontend` directory:
 ```env
-REACT_APP_API_URL=http://localhost:5000/api
+REACT_APP_API_URL=http://localhost:5000
+```
+
+Note: the frontend code already prefixes requests with `/api`, so `REACT_APP_API_URL` should be the backend base URL (no trailing `/api`).
+
+---
+
+## 🌐 Deploy (Vercel + hosted backend)
+
+This project is a React frontend + Express backend. Deploy the frontend on Vercel and deploy the backend on a Node host (Render/Railway/Fly/etc.).
+
+### Backend environment variables (production)
+
+Set these on your backend hosting platform:
+
+```env
+MONGODB_URI=mongodb+srv://<user>:<password>@<cluster>/<dbName>
+JWT_SECRET=<long-random-string>
+NODE_ENV=production
+CORS_ORIGIN=https://<your-vercel-domain>
+```
+
+`CORS_ORIGIN` can also be a comma-separated list (e.g. `http://localhost:3000,https://myapp.vercel.app`).
+
+### Frontend environment variables (Vercel)
+
+In Vercel Project Settings → Environment Variables:
+
+```env
+REACT_APP_API_URL=https://<your-backend-domain>
 ```
 
 ---
@@ -241,7 +267,3 @@ Built with ❤️ for sneaker enthusiasts
 - Tailwind CSS for the amazing utility-first framework
 - React community for excellent documentation
 - Unsplash for product placeholder images
-<<<<<<< HEAD
-=======
->>>>>>> 60f6a70 (Initial commit)
->>>>>>> temp

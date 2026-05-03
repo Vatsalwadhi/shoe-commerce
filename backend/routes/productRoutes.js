@@ -110,6 +110,26 @@ router.get('/', async (req, res) => {
 // @route   GET /api/products/:id
 // @desc    Get single product by ID
 // @access  Public
+// NOTE: Keep static routes above `/:id` to avoid being treated as an ID.
+
+// @route   GET /api/products/brands/all
+// @desc    Get all unique brands
+// @access  Public
+router.get('/brands/all', async (req, res) => {
+  try {
+    const brands = await Product.distinct('brand');
+    res.json({
+      success: true,
+      data: brands,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
 router.get('/:id', async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -202,24 +222,6 @@ router.delete('/:id', protect, admin, async (req, res) => {
     res.json({
       success: true,
       message: 'Product deleted successfully',
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
-});
-
-// @route   GET /api/products/brands/all
-// @desc    Get all unique brands
-// @access  Public
-router.get('/brands/all', async (req, res) => {
-  try {
-    const brands = await Product.distinct('brand');
-    res.json({
-      success: true,
-      data: brands,
     });
   } catch (error) {
     res.status(500).json({
