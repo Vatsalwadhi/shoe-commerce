@@ -52,6 +52,11 @@ const ProductCard = ({ product }) => {
               -{product.discount}%
             </span>
           )}
+          {product.sizes.reduce((acc, curr) => acc + curr.stock, 0) === 0 && (
+            <span className="bg-gray-800 text-white text-xs px-2 py-1 rounded-full font-semibold">
+              Out of Stock
+            </span>
+          )}
         </div>
 
         {/* Wishlist Button */}

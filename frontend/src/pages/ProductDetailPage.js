@@ -65,6 +65,11 @@ const ProductDetailPage = () => {
     }
 
     try {
+      const selectedSizeStock = product.sizes.find(s => s.size === selectedSize).stock;
+      if (quantity > selectedSizeStock) {
+        toast.error(`Only ${selectedSizeStock} items available in this size`);
+        return;
+      }
       await addToCart(product._id, quantity, selectedSize);
     } catch (error) {
       console.error('Error adding to cart:', error);
@@ -222,6 +227,13 @@ const ProductDetailPage = () => {
                 </button>
               ))}
             </div>
+            {selectedSize && (
+              <p className="text-sm mt-3 text-blue-600 dark:text-blue-400 font-semibold">
+                {product.sizes.find(s => s.size === selectedSize).stock > 0 
+                  ? `In Stock: ${product.sizes.find(s => s.size === selectedSize).stock} pairs available`
+                  : 'Out of Stock'}
+              </p>
+            )}
           </div>
 
           {/* Colors */}
