@@ -186,11 +186,11 @@ const ProductDetailPage = () => {
             <div className="flex items-center gap-4">
               {hasDiscount && (
                 <span className="text-2xl text-gray-400 line-through">
-                  ${product.price}
+                  ₹{product.price}
                 </span>
               )}
               <span className="text-4xl font-bold text-gray-900 dark:text-white">
-                ${displayPrice}
+                ₹{displayPrice}
               </span>
             </div>
           </div>

@@ -48,7 +48,7 @@ const CartPage = () => {
 
   const subtotal = getCartTotal();
   const tax = subtotal * 0.08; // 8% tax
-  const shipping = subtotal > 100 ? 0 : 10;
+  const shipping = subtotal > 5000 ? 0 : 500;
   const total = subtotal + tax + shipping;
 
   return (
@@ -84,7 +84,7 @@ const CartPage = () => {
                   {item.product.brand} • Size: {item.size}
                 </p>
                 <p className="text-lg font-bold text-gray-900 dark:text-white mt-2">
-                  ${item.product.discountedPrice || item.product.price}
+                  ₹{item.product.discountedPrice || item.product.price}
                 </p>
               </div>
 
@@ -126,27 +126,27 @@ const CartPage = () => {
             <div className="space-y-3 mb-6">
               <div className="flex justify-between text-gray-600 dark:text-gray-400">
                 <span>Subtotal</span>
-                <span>${subtotal.toFixed(2)}</span>
+                <span>₹{subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-gray-600 dark:text-gray-400">
                 <span>Tax (8%)</span>
-                <span>${tax.toFixed(2)}</span>
+                <span>₹{tax.toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-gray-600 dark:text-gray-400">
                 <span>Shipping</span>
-                <span>{shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`}</span>
+                <span>{shipping === 0 ? 'FREE' : `₹${shipping.toFixed(2)}`}</span>
               </div>
               <div className="border-t border-gray-200 dark:border-gray-700 pt-3 mt-3">
                 <div className="flex justify-between text-xl font-bold text-gray-900 dark:text-white">
                   <span>Total</span>
-                  <span>${total.toFixed(2)}</span>
+                  <span>₹{total.toFixed(2)}</span>
                 </div>
               </div>
             </div>
 
-            {subtotal < 100 && (
+            {subtotal < 5000 && (
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                Add ${(100 - subtotal).toFixed(2)} more to get free shipping!
+                Add ₹{(5000 - subtotal).toFixed(2)} more to get free shipping!
               </p>
             )}
 

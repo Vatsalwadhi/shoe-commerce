@@ -77,7 +77,7 @@ const OrdersPage = () => {
                     {order.status}
                   </span>
                   <span className="text-xl font-bold text-gray-900 dark:text-white">
-                    ${order.totalPrice.toFixed(2)}
+                    ₹{order.totalPrice.toFixed(2)}
                   </span>
                 </div>
               </div>
@@ -99,7 +99,7 @@ const OrdersPage = () => {
                       </p>
                     </div>
                     <p className="font-bold text-gray-900 dark:text-white">
-                      ${(item.price * item.quantity).toFixed(2)}
+                      ₹{(item.price * item.quantity).toFixed(2)}
                     </p>
                   </div>
                 ))}

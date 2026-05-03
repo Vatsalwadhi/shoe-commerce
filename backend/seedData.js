@@ -412,6 +412,156 @@ const products = [
     trending: false,
     isNewArrival: true,
     discount: 0
+  },
+  {
+    name: 'Jordan 4 Retro Military Black',
+    brand: 'Jordan',
+    price: 210,
+    description: 'The Air Jordan 4 Retro Military Black offers a classic look with a neutral color palette. Features premium leather and the iconic mesh inserts.',
+    images: [
+      'https://images.unsplash.com/photo-1605812860427-4024433a70fd?w=800'
+    ],
+    category: 'Basketball',
+    sizes: [
+      { size: 7, stock: 10 },
+      { size: 8, stock: 15 },
+      { size: 9, stock: 20 },
+      { size: 10, stock: 25 },
+      { size: 11, stock: 18 },
+      { size: 12, stock: 10 }
+    ],
+    colors: ['White', 'Black', 'Grey'],
+    rating: 4.9,
+    numReviews: 456,
+    featured: true,
+    trending: true,
+    isNewArrival: true,
+    discount: 0
+  },
+  {
+    name: 'Yeezy Boost 350 V2',
+    brand: 'Adidas',
+    price: 230,
+    description: 'The Yeezy Boost 350 V2 features a redesigned Primeknit upper and a translucent side stripe for a unique look.',
+    images: [
+      'https://images.unsplash.com/photo-1586525198428-225f6f12cff5?w=800'
+    ],
+    category: 'Lifestyle',
+    sizes: [
+      { size: 7, stock: 12 },
+      { size: 8, stock: 18 },
+      { size: 9, stock: 22 },
+      { size: 10, stock: 28 },
+      { size: 11, stock: 15 },
+      { size: 12, stock: 8 }
+    ],
+    colors: ['Bone', 'Onyx', 'Zebra'],
+    rating: 4.8,
+    numReviews: 892,
+    featured: true,
+    trending: true,
+    isNewArrival: false,
+    discount: 0
+  },
+  {
+    name: 'New Balance 2002R Protection Pack',
+    brand: 'New Balance',
+    price: 160,
+    description: 'The New Balance 2002R Protection Pack features a deconstructed aesthetic with rough-cut suede overlays.',
+    images: [
+      'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=800'
+    ],
+    category: 'Lifestyle',
+    sizes: [
+      { size: 7, stock: 8 },
+      { size: 8, stock: 12 },
+      { size: 9, stock: 16 },
+      { size: 10, stock: 20 },
+      { size: 11, stock: 14 },
+      { size: 12, stock: 10 }
+    ],
+    colors: ['Rain Cloud', 'Phantom', 'Sea Salt'],
+    rating: 4.7,
+    numReviews: 234,
+    featured: false,
+    trending: true,
+    isNewArrival: true,
+    discount: 0
+  },
+  {
+    name: 'Nike SB Dunk Low Pro',
+    brand: 'Nike',
+    price: 115,
+    description: 'The Nike SB Dunk Low Pro delivers iconic Dunk style with a skate-ready build. Zoom Air unit in the heel for responsive cushioning.',
+    images: [
+      'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800'
+    ],
+    category: 'Lifestyle',
+    sizes: [
+      { size: 7, stock: 15 },
+      { size: 8, stock: 20 },
+      { size: 9, stock: 25 },
+      { size: 10, stock: 30 },
+      { size: 11, stock: 22 },
+      { size: 12, stock: 18 }
+    ],
+    colors: ['Blue', 'White', 'Gum'],
+    rating: 4.6,
+    numReviews: 145,
+    featured: false,
+    trending: false,
+    isNewArrival: true,
+    discount: 0
+  },
+  {
+    name: 'Adidas Forum Low',
+    brand: 'Adidas',
+    price: 100,
+    description: 'The Adidas Forum Low brings back the 84 basketball icon. Features the classic strap and premium leather construction.',
+    images: [
+      'https://images.unsplash.com/photo-1606902965551-dce093cda6e7?w=800'
+    ],
+    category: 'Casual',
+    sizes: [
+      { size: 7, stock: 20 },
+      { size: 8, stock: 25 },
+      { size: 9, stock: 30 },
+      { size: 10, stock: 35 },
+      { size: 11, stock: 25 },
+      { size: 12, stock: 15 }
+    ],
+    colors: ['White', 'Blue', 'Cloud White'],
+    rating: 4.5,
+    numReviews: 321,
+    featured: false,
+    trending: true,
+    isNewArrival: false,
+    discount: 10
+  },
+  {
+    name: 'Puma Palermo',
+    brand: 'Puma',
+    price: 90,
+    description: 'A terrace icon returns. The Puma Palermo features a classic T-toe construction and authentic gum sole.',
+    images: [
+      'https://images.unsplash.com/photo-1609939786410-ce1b1d0e3096?w=800'
+    ],
+    category: 'Casual',
+    sizes: [
+      { size: 7, stock: 12 },
+      { size: 8, stock: 16 },
+      { size: 9, stock: 20 },
+      { size: 10, stock: 24 },
+      { size: 11, stock: 18 },
+      { size: 12, stock: 14 }
+    ],
+    colors: ['Blue', 'White', 'Gum'],
+    rating: 4.4,
+    numReviews: 89,
+    featured: false,
+    trending: false,
+    isNewArrival: true,
+    discount: 0
   }
 ];
 

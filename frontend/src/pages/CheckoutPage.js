@@ -19,7 +19,7 @@ const CheckoutPage = () => {
 
   const subtotal = getCartTotal();
   const tax = subtotal * 0.08;
-  const shipping = subtotal > 100 ? 0 : 10;
+  const shipping = subtotal > 5000 ? 0 : 500;
   const total = subtotal + tax + shipping;
 
   const handleInputChange = (e) => {
@@ -167,8 +167,8 @@ const CheckoutPage = () => {
               <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
                 Payment Method
               </h2>
-              <div className="space-y-3">
-                <label className="flex items-center p-4 border-2 border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer">
+              <div className="space-y-4">
+                <label className="flex items-center p-4 border-2 border-blue-600 rounded-lg cursor-pointer bg-blue-50 dark:bg-blue-900/20">
                   <input
                     type="radio"
                     name="payment"
@@ -176,10 +176,54 @@ const CheckoutPage = () => {
                     defaultChecked
                     className="w-4 h-4 text-blue-600"
                   />
-                  <span className="ml-3 font-semibold">Credit Card (Stripe)</span>
+                  <span className="ml-3 font-semibold flex items-center gap-2">
+                    <span className="text-gray-900 dark:text-white">Credit / Debit Card</span>
+                    <div className="flex gap-1">
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" className="h-4" />
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" className="h-4" />
+                    </div>
+                  </span>
                 </label>
-                <p className="text-sm text-gray-600 dark:text-gray-400 ml-7">
-                  Mock payment integration - Order will be placed without actual payment
+
+                <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800/50 space-y-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-500 uppercase mb-1">Card Number</label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        placeholder="4242 4242 4242 4242"
+                        className="input-field pr-10"
+                        maxLength="19"
+                      />
+                      <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" className="h-3" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-500 uppercase mb-1">Expiry Date</label>
+                      <input
+                        type="text"
+                        placeholder="MM / YY"
+                        className="input-field"
+                        maxLength="5"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-500 uppercase mb-1">CVC</label>
+                      <input
+                        type="password"
+                        placeholder="123"
+                        className="input-field"
+                        maxLength="3"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Your payment is processed securely by <span className="font-bold text-blue-600 italic">Stripe</span>.
                 </p>
               </div>
             </div>
@@ -218,7 +262,7 @@ const CheckoutPage = () => {
                       Size: {item.size} • Qty: {item.quantity}
                     </p>
                     <p className="text-sm font-bold text-gray-900 dark:text-white">
-                      ${(item.product.discountedPrice || item.product.price) * item.quantity}
+                      ₹{(item.product.discountedPrice || item.product.price) * item.quantity}
                     </p>
                   </div>
                 </div>
@@ -229,20 +273,20 @@ const CheckoutPage = () => {
             <div className="space-y-3 border-t border-gray-200 dark:border-gray-700 pt-4">
               <div className="flex justify-between text-gray-600 dark:text-gray-400">
                 <span>Subtotal</span>
-                <span>${subtotal.toFixed(2)}</span>
+                <span>₹{subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-gray-600 dark:text-gray-400">
                 <span>Tax</span>
-                <span>${tax.toFixed(2)}</span>
+                <span>₹{tax.toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-gray-600 dark:text-gray-400">
                 <span>Shipping</span>
-                <span>{shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`}</span>
+                <span>{shipping === 0 ? 'FREE' : `₹${shipping.toFixed(2)}`}</span>
               </div>
               <div className="border-t border-gray-200 dark:border-gray-700 pt-3">
                 <div className="flex justify-between text-xl font-bold text-gray-900 dark:text-white">
                   <span>Total</span>
-                  <span>${total.toFixed(2)}</span>
+                  <span>₹{total.toFixed(2)}</span>
                 </div>
               </div>
             </div>

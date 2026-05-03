@@ -216,7 +216,7 @@ const HomePage = () => {
               Free Shipping
             </h3>
             <p className="text-gray-600 dark:text-gray-400">
-              On all orders over $100
+              On all orders over ₹5000
             </p>
           </div>
           <div className="p-6">

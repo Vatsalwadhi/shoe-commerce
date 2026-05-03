@@ -74,7 +74,7 @@ const AdminDashboard = () => {
             <div>
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Total Revenue</p>
               <p className="text-3xl font-bold text-gray-900 dark:text-white">
-                ${stats.totalRevenue.toFixed(2)}
+                ₹{stats.totalRevenue.toFixed(2)}
               </p>
             </div>
             <div className="p-3 bg-green-100 dark:bg-green-900 rounded-full">
@@ -154,7 +154,7 @@ const AdminDashboard = () => {
               </div>
               <div className="text-right">
                 <p className="font-bold text-gray-900 dark:text-white">
-                  ${order.totalPrice.toFixed(2)}
+                  ₹{order.totalPrice.toFixed(2)}
                 </p>
                 <span className={`text-xs px-2 py-1 rounded-full ${
                   order.status === 'Delivered'
