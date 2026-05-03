@@ -33,7 +33,7 @@ const app = express();
 // - https://my-frontend.vercel.app
 // - http://localhost:3000,https://my-frontend.vercel.app
 // - * (allow all; not recommended for production)
-const corsOriginRaw = process.env.CORS_ORIGIN || 'http://localhost:3000';
+const corsOriginRaw = process.env.CORS_ORIGIN || '*';
 const allowedOrigins = corsOriginRaw
   .split(',')
   .map((o) => o.trim())
@@ -42,16 +42,21 @@ const allowedOrigins = corsOriginRaw
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow non-browser clients (curl, Postman) with no Origin header.
+      // Allow non-browser clients
       if (!origin) return callback(null, true);
 
-      // Allow all when explicitly configured.
+      // Allow all if * is present
       if (allowedOrigins.includes('*')) return callback(null, true);
 
+      // Allow exact match
       if (allowedOrigins.includes(origin)) return callback(null, true);
+
+      // Check if it's a vercel domain
+      if (origin.endsWith('.vercel.app')) return callback(null, true);
 
       return callback(new Error(`CORS blocked for origin: ${origin}`));
     },
+    credentials: true,
   })
 );
 app.use(express.json());
