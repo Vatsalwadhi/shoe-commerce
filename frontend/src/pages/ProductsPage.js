@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { FiFilter, FiX } from 'react-icons/fi';
 import { getProducts } from '../services/productService';
@@ -30,11 +30,7 @@ const ProductsPage = () => {
     trending: searchParams.get('trending') || '',
   });
 
-  useEffect(() => {
-    fetchProducts();
-  }, [filters]);
-
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async () => {
     try {
       setLoading(true);
       const params = {};
@@ -51,7 +47,11 @@ const ProductsPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filters]);
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
 
   const handleFilterChange = (key, value) => {
     const newFilters = { ...filters, [key]: value, page: 1 };
@@ -240,7 +240,7 @@ const ProductsPage = () => {
                       key={index}
                       onClick={() => handleFilterChange('page', index + 1)}
                       className={`px-4 py-2 rounded-lg font-semibold transition-all ${
-                        filters.page == index + 1
+                        String(filters.page) === String(index + 1)
                           ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900'
                           : 'bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700'
                       }`}

@@ -52,7 +52,7 @@ const CheckoutPage = () => {
         totalPrice: parseFloat(total.toFixed(2)),
       };
 
-      const response = await createOrder(orderData);
+      await createOrder(orderData);
       
       // Mock payment success
       toast.success('Order placed successfully!');

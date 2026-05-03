@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FiHeart, FiShoppingCart, FiStar } from 'react-icons/fi';
 import { FaHeart } from 'react-icons/fa';
@@ -30,11 +30,7 @@ const ProductDetailPage = () => {
     comment: '',
   });
 
-  useEffect(() => {
-    fetchProductDetails();
-  }, [id]);
-
-  const fetchProductDetails = async () => {
+  const fetchProductDetails = useCallback(async () => {
     try {
       setLoading(true);
       const [productRes, reviewsRes] = await Promise.all([
@@ -50,7 +46,11 @@ const ProductDetailPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id, navigate]);
+
+  useEffect(() => {
+    fetchProductDetails();
+  }, [fetchProductDetails]);
 
   const handleAddToCart = async () => {
     if (!isAuthenticated) {

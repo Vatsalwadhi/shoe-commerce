@@ -16,18 +16,18 @@ const Footer = () => {
               Your destination for premium sneakers from top brands. Authentic quality, latest styles.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <button type="button" className="text-gray-400 hover:text-white transition-colors">
                 <FiFacebook className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              </button>
+              <button type="button" className="text-gray-400 hover:text-white transition-colors">
                 <FiTwitter className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              </button>
+              <button type="button" className="text-gray-400 hover:text-white transition-colors">
                 <FiInstagram className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              </button>
+              <button type="button" className="text-gray-400 hover:text-white transition-colors">
                 <FiYoutube className="w-5 h-5" />
-              </a>
+              </button>
             </div>
           </div>
 
